@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main></main>;
+  return <h1 className="underline">Hello world!</h1>;
 }
