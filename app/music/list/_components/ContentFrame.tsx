@@ -1,4 +1,4 @@
-import Frame, { FrameProps } from "@/ui/Frame";
+import Frame, { FrameProps } from "@/app/_components/Frame";
 import { ReactNode } from "react";
 
 interface Props extends FrameProps {

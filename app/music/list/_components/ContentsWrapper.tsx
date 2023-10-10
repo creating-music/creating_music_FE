@@ -1,4 +1,4 @@
-import Wrapper, { WrapperProps } from "@/ui/Wrapper";
+import Wrapper, { WrapperProps } from "@/app/_components/Wrapper";
 
 interface Props extends WrapperProps {}
 
