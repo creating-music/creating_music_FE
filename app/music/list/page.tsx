@@ -1,4 +1,4 @@
-import Frame from "@/app/music/list/_components/Frame";
+import Frame from "@/ui/Frame";
 import Banner from "@/app/music/list/_components/Banner";
 import ContentsWrapper from "./_components/ContentsWrapper";
 import ContentFrame from "./_components/ContentFrame";

@@ -1,4 +1,4 @@
-import Frame, { FrameProps } from "@/app/music/list/_components/Frame";
+import Frame, { FrameProps } from "@/ui/Frame";
 import { ReactNode } from "react";
 
 interface Props extends FrameProps {
