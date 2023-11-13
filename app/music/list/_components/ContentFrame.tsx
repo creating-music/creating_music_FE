@@ -8,12 +8,12 @@ interface Props extends FrameProps {
 
 export default function ContentFrame({ title, addon, children }: Props) {
   return (
-    <Frame className="w-full">
-      <header className="flex items-center justify-between">
-        <h2 className="text-6xl font-semibold leading-[1.25] text-white">
+    <Frame className="w-[75rem] pt-[1rem]">
+      <header className="flex h-[5rem] items-center justify-between px-[3rem]">
+        <h2 className="text-[2rem] font-semibold leading-[1.25] text-white">
           {title}
         </h2>
-        {addon ? <div></div> : null}
+        {addon}
       </header>
       <div>{children}</div>
     </Frame>
