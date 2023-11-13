@@ -1,15 +1,8 @@
 import Image from "next/image";
+import { Music } from "@/app/music/list/types";
 
 interface Props {
-  music: {
-    id: number;
-    rank: number;
-    thumbnail: string;
-    title: string;
-    author: string;
-    genre: string;
-    time: string;
-  };
+  music: Music;
 }
 
 export default function MusicBar({ music }: Props) {
