@@ -33,7 +33,8 @@
     "@tailwindcss/typography": "^0.5.9",
     "@tanstack/eslint-plugin-query": "^4.29.25",
     "prettier": "^3.0.0",
-    "prettier-plugin-tailwindcss": "^0.4.1"
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "main": "index.js",
   "repository": "https://github.com/creating-music/creating_music_FE.git",
