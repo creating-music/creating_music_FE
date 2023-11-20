@@ -63,7 +63,7 @@ export default function Page() {
 
   return (
     <>
-      <Frame className="mx-auto flex w-[79rem] flex-col gap-[3rem] px-[2rem] py-[3rem]">
+      <Frame className="mx-auto mt-[5rem] flex w-[79rem] flex-col gap-[3rem] px-[2rem] py-[3rem]">
         <ContentFrame
           title="인기차트"
           addon={

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Music } from "@/app/music/list/types";
+import Icon from "@/app/_components/Icon";
+import { Button } from "@mui/base";
 
 interface Props {
   music: Music;
@@ -11,11 +13,13 @@ export default function MusicBar({ music }: Props) {
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-[1.125rem]">
         {music.rank}
       </div>
-      <div className="flex h-[5rem] w-[5rem] items-center justify-center">
+      <div className="h-[5rem] w-[5rem] overflow-hidden rounded-[0.25rem]">
         {music.thumbnail ? (
           <Image alt="" src={music.thumbnail} fill />
         ) : (
-          <span>music</span>
+          <div className="flex h-full w-full items-center justify-center bg-u-gray-300">
+            <Icon name="music" />
+          </div>
         )}
       </div>
       <div className="flex h-[5rem] w-[15rem] flex-col justify-center px-[2rem] text-center">
@@ -28,19 +32,27 @@ export default function MusicBar({ music }: Props) {
         {music.genre}
       </div>
       <div className="flex h-[5rem] w-[5rem] items-center justify-center">
-        play
+        <Icon name="play" />
       </div>
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-u-gray-200">
         {music.time}
       </div>
       <div className="flex h-[5rem] w-[17.5rem] items-center justify-center text-u-gray-200">
-        progress bar
+        <Icon name="equalizer2" />
       </div>
       <div className="flex h-[5rem] w-[13rem] items-center justify-center gap-[2rem] text-u-gray-200">
-        <span className="h-[1.5rem] w-[1.5rem]">1</span>
-        <span className="h-[1.5rem] w-[1.5rem]">2</span>
-        <span className="h-[1.5rem] w-[1.5rem]">3</span>
-        <span className="h-[1.5rem] w-[1.5rem]">4</span>
+        <Button>
+          <Icon name="heart" />
+        </Button>
+        <Button>
+          <Icon name="download" />
+        </Button>
+        <Button>
+          <Icon name="share" />
+        </Button>
+        <Button>
+          <Icon name="airplay" />
+        </Button>
       </div>
     </div>
   );
