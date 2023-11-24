@@ -10,36 +10,40 @@ interface resLogin{
     msg:string;
     state:boolean;
 }
-interface retres{
-    msg:string;
-    state:boolean;
-}
 // const doLogin=async (inEmail:string,inPw:string):Promise<resLogin>=>{
 const doLogin= async (inEmail:string,inPw:string):Promise<boolean> =>{
-    let ret:retres
+    let ret:resLogin
     const addr=serveraddr+"/user/login"
     let jsondata={
         email:inEmail,
         password:inPw
     }
-    const res=await fetch(addr,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-            'Content-Type':'application/json',
-            'Access-Control-Allow-Origin':'http:/localhost:3000',
-        },
-        body:JSON.stringify(jsondata),
-    })
-    ret=await res.json()
-    console.log(ret);
-    if (ret.state==true){
-        alert('login msg:' + ret.msg);
-        return ret.state
-    }else{
-        alert("login msg:"+ret.msg);
-        return ret.state
+    try {
+        const res=await fetch(addr,{
+            method:"POST",
+            credentials:"include",
+            headers:{
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin':'http:/localhost:3000',
+            },
+            body:JSON.stringify(jsondata),
+        })
+        if(res.status===200){
+            ret=await res.json()
+            if (ret.state==true){
+                alert('login msg:' + ret.msg);
+                return ret.state
+            }else{
+                alert("login msg:"+ret.msg);
+                return ret.state
+            }
+        }
+        return false
+    } catch (error) {
+        alert("네트워크 연결 상태가 좋지 않습니다")
+        return false
     }
+    
 }
 const doFindPass=async ()=>{
     const addr=serveraddr+""
