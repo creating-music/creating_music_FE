@@ -1,19 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import { Music } from "@/app/music/list/types";
 import Icon from "@/app/_components/Icon";
 import { Button } from "@mui/base";
-
+import Link from "next/link";
+import useToggle from "@/app/_hooks/use-toggle";
 interface Props {
   music: Music;
 }
 
 export default function MusicBar({ music }: Props) {
+  const [isPlaying, setIsPlaying] = useToggle(false);
+
   return (
     <div className="bg-ugray-500 flex h-[7.5rem] w-[75rem] px-[1.5rem] py-[1.25rem]">
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-[1.125rem]">
         {music.rank}
       </div>
-      <div className="h-[5rem] w-[5rem] overflow-hidden rounded-[0.25rem]">
+      <Button className="h-[5rem] w-[5rem] overflow-hidden rounded-[0.25rem]">
         {music.thumbnail ? (
           <Image alt="" src={music.thumbnail} fill />
         ) : (
@@ -21,18 +26,26 @@ export default function MusicBar({ music }: Props) {
             <Icon name="music" />
           </div>
         )}
-      </div>
+      </Button>
       <div className="flex h-[5rem] w-[15rem] flex-col justify-center px-[2rem] text-center">
-        <h3 className="line-clamp-1 w-full overflow-ellipsis">{music.title}</h3>
-        <small className="line-clamp-1 overflow-ellipsis text-u-gray-300">
-          {music.author}
-        </small>
+        <Link href="">
+          <h3 className="line-clamp-1 w-full overflow-ellipsis">
+            {music.title}
+          </h3>
+        </Link>
+        <Link href="">
+          <small className="line-clamp-1 overflow-ellipsis text-u-gray-300">
+            {music.author}
+          </small>
+        </Link>
       </div>
       <div className="line-clamp-1 flex h-[5rem] w-[5rem] items-center justify-center overflow-ellipsis text-u-gray-200">
-        {music.genre}
+        <Link href="">{music.genre}</Link>
       </div>
       <div className="flex h-[5rem] w-[5rem] items-center justify-center">
-        <Icon name="play" />
+        <Button>
+          <Icon name="play" />
+        </Button>
       </div>
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-u-gray-200">
         {music.time}

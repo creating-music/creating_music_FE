@@ -20,8 +20,7 @@ export default function Layout({ children }: Props) {
     <>
       <Frame>
         <Banner banners={banners} />
-      </Frame>
-      <div className="bg-gradient-to-b from-[#202023] to-u-gray-500" />
+      </Frame> 
       {children}
     </>
   );
