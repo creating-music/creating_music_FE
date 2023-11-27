@@ -3,6 +3,7 @@ import Link from "next/link";
 
 interface Props {
   banners: {
+    id: number;
     link: string;
     imgSrc: string;
   }[];
@@ -10,7 +11,7 @@ interface Props {
 
 export default function Banner({ banners }: Props) {
   return (
-    <ol className="flex h-max w-full overflow-hidden">
+    <ol className="flex h-[41.875rem] w-full overflow-hidden">
       {banners.map((banner, i) => (
         // TODO: react uuid로 key 값 교체
         <li
@@ -23,7 +24,7 @@ export default function Banner({ banners }: Props) {
               src={banner.imgSrc}
               fill
               sizes="100vw"
-              className="object-fill"
+              className="overflow-scroll-gradient object-fill"
             />
           </Link>
         </li>

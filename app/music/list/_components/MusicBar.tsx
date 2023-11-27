@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { Music } from "@/app/music/list/types";
-
+import Icon from "@/app/_components/Icon";
+import { Button } from "@mui/base";
+import Link from "next/link";
 interface Props {
   music: Music;
 }
@@ -11,36 +15,54 @@ export default function MusicBar({ music }: Props) {
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-[1.125rem]">
         {music.rank}
       </div>
-      <div className="flex h-[5rem] w-[5rem] items-center justify-center">
+      <Button className="h-[5rem] w-[5rem] overflow-hidden rounded-[0.25rem]">
         {music.thumbnail ? (
           <Image alt="" src={music.thumbnail} fill />
         ) : (
-          <span>music</span>
+          <div className="flex h-full w-full items-center justify-center bg-u-gray-300">
+            <Icon name="music" />
+          </div>
         )}
-      </div>
+      </Button>
       <div className="flex h-[5rem] w-[15rem] flex-col justify-center px-[2rem] text-center">
-        <h3 className="line-clamp-1 w-full overflow-ellipsis">{music.title}</h3>
-        <small className="line-clamp-1 overflow-ellipsis text-u-gray-300">
-          {music.author}
-        </small>
+        <Link href="">
+          <h3 className="line-clamp-1 w-full overflow-ellipsis">
+            {music.title}
+          </h3>
+        </Link>
+        <Link href="">
+          <small className="line-clamp-1 overflow-ellipsis text-u-gray-300">
+            {music.author}
+          </small>
+        </Link>
       </div>
       <div className="line-clamp-1 flex h-[5rem] w-[5rem] items-center justify-center overflow-ellipsis text-u-gray-200">
-        {music.genre}
+        <Link href="">{music.genre}</Link>
       </div>
       <div className="flex h-[5rem] w-[5rem] items-center justify-center">
-        play
+        <Button>
+          <Icon name="play" />
+        </Button>
       </div>
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-u-gray-200">
         {music.time}
       </div>
       <div className="flex h-[5rem] w-[17.5rem] items-center justify-center text-u-gray-200">
-        progress bar
+        <Icon name="equalizer2" />
       </div>
       <div className="flex h-[5rem] w-[13rem] items-center justify-center gap-[2rem] text-u-gray-200">
-        <span className="h-[1.5rem] w-[1.5rem]">1</span>
-        <span className="h-[1.5rem] w-[1.5rem]">2</span>
-        <span className="h-[1.5rem] w-[1.5rem]">3</span>
-        <span className="h-[1.5rem] w-[1.5rem]">4</span>
+        <Button>
+          <Icon name="heart" />
+        </Button>
+        <Button>
+          <Icon name="download" />
+        </Button>
+        <Button>
+          <Icon name="share" />
+        </Button>
+        <Button>
+          <Icon name="airplay" />
+        </Button>
       </div>
     </div>
   );
