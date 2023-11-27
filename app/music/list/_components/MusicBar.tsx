@@ -5,14 +5,11 @@ import { Music } from "@/app/music/list/types";
 import Icon from "@/app/_components/Icon";
 import { Button } from "@mui/base";
 import Link from "next/link";
-import useToggle from "@/app/_hooks/use-toggle";
 interface Props {
   music: Music;
 }
 
 export default function MusicBar({ music }: Props) {
-  const [isPlaying, setIsPlaying] = useToggle(false);
-
   return (
     <div className="bg-ugray-500 flex h-[7.5rem] w-[75rem] px-[1.5rem] py-[1.25rem]">
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-[1.125rem]">
