@@ -10,9 +10,21 @@ interface resLogin{
     msg:string;
     state:boolean;
 }
+interface resSignUp{
+    msg:string;
+    state:boolean;
+}
+interface resIdCheck{
+    msg:string;
+    state:boolean;
+}
 // const doLogin=async (inEmail:string,inPw:string):Promise<resLogin>=>{
-const doLogin= async (inEmail:string,inPw:string):Promise<boolean> =>{
-    let ret:resLogin
+const doLogin= async (inEmail:string,inPw:string):Promise<resLogin> =>{
+    let ret:resLogin;
+    ret={
+        msg:"fail",
+        state:false
+    }
     const addr=serveraddr+"/user/login"
     let jsondata={
         email:inEmail,
@@ -29,19 +41,19 @@ const doLogin= async (inEmail:string,inPw:string):Promise<boolean> =>{
             body:JSON.stringify(jsondata),
         })
         if(res.status===200){
-            ret=await res.json()
+            ret=await res.json();
             if (ret.state==true){
-                alert('login msg:' + ret.msg);
-                return ret.state
+                // 로그인 성공
+                return ret;
             }else{
-                alert("login msg:"+ret.msg);
-                return ret.state
+                // 로그인 실패
+                return ret;
             }
         }
-        return false
+        return ret;
     } catch (error) {
-        alert("네트워크 연결 상태가 좋지 않습니다")
-        return false
+        alert("네트워크 연결 상태가 좋지 않습니다 !");
+        return ret;
     }
     
 }
@@ -49,6 +61,11 @@ const doFindPass=async ()=>{
     const addr=serveraddr+""
     let ret
     let jsondata={
+    }
+    try {
+        
+    } catch (error) {
+        
     }
     const res=await fetch(addr,{
         method:"POST",
@@ -60,22 +77,32 @@ const doFindPass=async ()=>{
     
 }
 // 회원가입 
-const doSingUp= async (inId:string,inEmail:string,inPw1:string)=>{
-    let ret
-    const addr=serveraddr+""
+const doSignUp= async (INusername:string,INEmail:string,INPw1:string):Promise<resSignUp>=>{
+    let ret:resSignUp;
+    
+    const addr=serveraddr+"/user/signup"
     const jsondata={
-        id:inId,
-        email:inEmail,
-        pw:inPw1
+        username:INusername,
+        email:INEmail,
+        password:INPw1
     }
-    const res=await fetch(addr,{
-        method:"POST",
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify(jsondata)
-    })
-
+    try {
+        const res=await fetch(addr,{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(jsondata)
+        })
+        ret=await res.json();
+    } catch (error) {
+        console.log(error);
+        ret={
+            msg:"fail",
+            state:false
+        }
+    }
+    return ret;
 }
 
 // 메일 인증
@@ -87,25 +114,39 @@ const doMailCheck=async ()=>{
     })
 
 }
-const doIdCheck=async (inId:string)=>{
-    let ret
-    const addr=serveraddr+""
-    const res=await fetch(addr,{
-        method:"",
-    })
-
+const doIdCheck=async (inId:string):Promise<resIdCheck>=>{
+    let ret:resIdCheck;
+    ret={
+        msg:"net error",
+        state:false
+    }
+    const addr=serveraddr+"/user/idcheck"
+    const jsondata={
+        id:inId
+    }
+    try {
+        const res=await fetch(addr,{
+            method:"GET",
+            body:JSON.stringify(jsondata)
+        })
+        ret=await res.json();
+    } catch (error) {
+        
+    }
+    return ret
 }
 
-const doLogout=async ()=>{
-    const addr=serveraddr+"";
+const doLogOut=async ()=>{
+    const addr=serveraddr+"/user/logout";
     let ret;
+    // csrf 로 강제 로그 아웃 방지를 위한 POST 요청 하지만 과연?
     const res=await fetch(addr,{
         method:"POST",
+        
     })
-
 } 
 
-export {doLogin,doFindPass,doSingUp,doMailCheck,doIdCheck} 
+export {doLogin,doFindPass,doSignUp,doMailCheck,doIdCheck,doLogOut} 
 
 // let ret
 // const addr=""

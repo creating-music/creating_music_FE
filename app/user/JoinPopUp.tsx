@@ -1,20 +1,48 @@
 "use client";
 import test from "node:test";
-import {} from "./userUtil";
+import { doSignUp } from "./userUtil";
 import React, { useState } from "react";
 
 interface Props {
   getJoin:boolean;
   chModal:(value:number)=>void;
   closeModal:()=>void;
+  msgModal:(msg:string)=>void;
 }
 
-const JoinPopUp:React.FC<Props>= ({getJoin,chModal,closeModal}) => {
+const JoinPopUp:React.FC<Props>= ({getJoin,chModal,closeModal,msgModal}) => {
   const [getUserName,setUserName]=useState('');
   const [getEmail,setEmail]=useState('');
   const [getPw1,setPw1]=useState('');
   const [getPw2,setPw2]=useState('');
-  
+  const sign=async ()=>{
+    interface signret{msg:string;state:boolean}
+    let ret:signret;
+    if(getPw1==getPw2){
+      ret=await doSignUp(getEmail,getUserName,getPw1);
+      if(ret.state==true){
+        msgModal(ret.msg);
+        msgModal('');
+        setUserName('');
+        setEmail('');
+        setPw1('');
+        setPw2('');
+        chModal(1);
+        setTimeout(()=>{alert("회원 가입 성공");},1000);
+        
+      }else{
+        alert("실패"+ret.msg);
+        // msgModal(ret.msg);
+        // 10 초 정도 보여주고 msg 만 닫기 
+        // setTimeout(()=>{msgModal('');},20000);
+      }
+    }else{
+      // msgModal('비밀번호가 같지 않습니다');
+      alert("비밀 번호가 같지 않습니다");
+      // setTimeout(()=>{msgModal('');},20000);
+    }
+  }
+
   if(getJoin==false){
     return null;
   }
@@ -26,7 +54,7 @@ const JoinPopUp:React.FC<Props>= ({getJoin,chModal,closeModal}) => {
           <h5 className="font-bold flex justify-center text-xl">회원가입</h5>
           <br></br>
           <p  className="flex items-center">
-              <span className="text-gray-200 flex-grow">사용할 닉네임</span>
+              <span className="text-gray-200 flex-grow">닉네임</span>
               <span className="text-right text-gray-200 "> 
               {/* 좌우 로 가르는데 나중에 비번 같은지 표시하는것도 이걸로 만들어보자*/}
                   <button
@@ -39,9 +67,9 @@ const JoinPopUp:React.FC<Props>= ({getJoin,chModal,closeModal}) => {
               <input
                 className="border bg-u-gray-500 rounded-full p-2"
                 type="text"
-                placeholder="닉네임"
+                placeholder="사용할 닉네임"
                 name="UserName"
-                value={getEmail}
+                value={getUserName}
                 onChange={(e) => {
                   setUserName(e.target.value);
                 }}
@@ -51,7 +79,7 @@ const JoinPopUp:React.FC<Props>= ({getJoin,chModal,closeModal}) => {
               <input
                 className="border bg-u-gray-500 rounded-full p-2"
                 type="email"
-                placeholder="email"
+                placeholder="Email"
                 name="email"
                 value={getEmail}
                 onChange={(e) => {
@@ -92,7 +120,7 @@ const JoinPopUp:React.FC<Props>= ({getJoin,chModal,closeModal}) => {
                 // className="mx-auto rounded-full bg-white text-black px-6 py-3"
                 className="rounded-full bg-white text-black px-16 mx-4 border font-bold"
                 onClick={(e) => {
-                  
+                  sign();
                 }}
               >회원가입</button>
               </div> 

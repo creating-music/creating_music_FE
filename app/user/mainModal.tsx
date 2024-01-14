@@ -1,20 +1,22 @@
 "use client";
 import React, { useState } from "react";
-import { doLogin, doFindPass } from "./userUtil";
-import { SignUpPopUp } from "./SignUpPop";
 import LoginPopUp from "./LoginPopUp";
 import JoinPopUp from "./JoinPopUp";
 import FindIdPwPopUp from "./FindIdPwPopUp";
+
 interface Props {
   getModal:boolean;
   setModal:(value:boolean)=>void
+  setLoginStatus:(status:boolean)=>void;
 }
 
-const MainModalPopup: React.FC<Props> = ({getModal,setModal}) => {
+const MainModalPopup: React.FC<Props> = ({getModal,setModal,setLoginStatus}) => {
   // const [getState, setState] = useState(true);
   const [getLogin,setLogin] = useState(true);
   const [getJoin,setJoin]=useState(false);
-  const [getFind,setFind]=useState(false)
+  const [getFind,setFind]=useState(false);
+  // const [getMsg,setMsg]=useState(false);
+  const [getmsgstr,setmsgstr]=useState('');
   //   1 Login 2 Join 3 Find
   const chModal=(InputNum:number)=>{
     if(InputNum==1){
@@ -42,6 +44,9 @@ const MainModalPopup: React.FC<Props> = ({getModal,setModal}) => {
     setJoin(false);
     setFind(false);
   }
+  const msgModal=(INmsg:string)=>{
+    setmsgstr(INmsg);
+  }
   if (getModal == false) {
     return null;  
   } else if(getModal==true){
@@ -53,8 +58,9 @@ const MainModalPopup: React.FC<Props> = ({getModal,setModal}) => {
           onClick={notModal}
         >
           <div>
-            <LoginPopUp getLogin={getLogin} chModal={chModal} closeModal={closeModal}></LoginPopUp>
-            <JoinPopUp getJoin={getJoin} chModal={chModal} closeModal={closeModal}></JoinPopUp>
+            {/* <MsgPopUp getmsgstr={getmsgstr} msgModal={msgModal}></MsgPopUp> */}
+            <LoginPopUp getLogin={getLogin} chModal={chModal} closeModal={closeModal} msgModal={msgModal} setLoginStatus={setLoginStatus}></LoginPopUp>
+            <JoinPopUp getJoin={getJoin} chModal={chModal} closeModal={closeModal} msgModal={msgModal}></JoinPopUp>
             <FindIdPwPopUp getFind={getFind} chModal={chModal}clocseModal={closeModal}></FindIdPwPopUp>
           </div>
         </div>
