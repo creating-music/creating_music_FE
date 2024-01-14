@@ -3,26 +3,35 @@ import { doLogin } from "./userUtil";
 import React, { useState } from "react";
 
 interface Props {
-  //   getSign: boolean;
   getLogin:boolean;
-  // chLogin:(value:boolean)=>void;
-  // chJoin:(value:boolean)=>void;
   chModal:(value:number)=>void;
   closeModal:()=>void;
-  //   setSign: (value: boolean) => void;
+  msgModal:(INmsg:string)=>void;
+  setLoginStatus:(status:boolean)=>void;
 }
 
-const LoginPopUp:React.FC<Props>= ({getLogin,chModal,closeModal}) => {
+const LoginPopUp:React.FC<Props>= ({getLogin,chModal,closeModal,msgModal,setLoginStatus}) => {
   const [getEmail,setEmail]=useState('');
   const [getPw,setPw]=useState('');
-  
+
   const login=async ()=>{
-    let ret=await doLogin(getEmail,getPw);
-    if(ret==true){
-      closeModal();
+    interface loginret{msg:string;state:boolean}
+    let ret:loginret=await doLogin(getEmail,getPw);
+    if(ret.state==true){
+      // msgModal(ret.msg);
+      // 2 초 정도 알림 보여주고 로그인 msg 닫기
+      // setTimeout(()=>{closeModal();msgModal('');},2000);
+      alert("로그인 성공")
+      // 로그인 성공시 로그인버튼 -> 로그 아웃 버튼
+      setLoginStatus(true);
+      setTimeout(()=>{closeModal();},2000);
     }else{
-      setEmail('');
-      setPw('');
+      // setEmail('');
+      // setPw('');
+      alert("로그인 실패");
+      // 10 초 정도 보여주고 msg 만 닫기 
+      // msgModal('fail');
+      // setTimeout(()=>{msgModal('');},10000);
     }
   }
 
@@ -39,7 +48,7 @@ const LoginPopUp:React.FC<Props>= ({getLogin,chModal,closeModal}) => {
               <input
                 className="border bg-u-gray-500 rounded-full p-2"
                 type="email"
-                placeholder="email"
+                placeholder="Email"
                 name="email"
                 value={getEmail}
                 onChange={(e) => {
@@ -50,7 +59,7 @@ const LoginPopUp:React.FC<Props>= ({getLogin,chModal,closeModal}) => {
               <input
                 className="border bg-u-gray-500 rounded-full p-2"
                 type="password"
-                placeholder="passwd"
+                placeholder="Password"
                 name="password"
                 value={getPw}
                 onChange={(e) => {
