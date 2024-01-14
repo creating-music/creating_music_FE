@@ -3,9 +3,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "gray-light": "#B4B4B4",
-        gray: "#5A5A5A",
-        "gray-dark": "#1D1D1D",
+        white: "#fff",
+        "u-gray-100": "#e4e4e7",
+        "u-gray-200": "#a1a1aa",
+        "u-gray-300": "#52525b",
+        "u-gray-400": "#27272a",
+        "u-gray-500": "#18181b",
         pink: "#FB27FF",
         cyan: "#27F2FF",
         "container-gray": "#27272A",
@@ -22,5 +25,6 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/line-clamp"),
+    require("tailwind-scrollbar-hide"),
   ],
 };

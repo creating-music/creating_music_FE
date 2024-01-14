@@ -11,7 +11,7 @@ interface MenuProps {
 }
 export default function Menu(props: MenuProps) {
   return (
-    <section className="mx-auto mt-[5rem] w-full max-w-[87.5rem] rounded-[1rem] bg-container-gray pl-[6.25rem] pr-0">
+    <section className="mx-auto mt-[5rem] w-full max-w-[87.5rem] rounded-[1rem] bg-u-gray-400 pl-[6.25rem] pr-0">
       <p className="h-[6.25rem] py-[1.625rem] text-[2.5rem] font-bold  text-white">
         {props.title}
       </p>

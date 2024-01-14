@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <main className="h-full min-h-screen  bg-black px-[2rem] py-16">
-      <section className="mx-auto w-full max-w-[87.5rem] rounded-[1rem] bg-container-gray p-[7.5rem] pb-[5rem]">
+      <section className="mx-auto w-full max-w-[87.5rem] rounded-[1rem] bg-u-gray-400 p-[7.5rem] pb-[5rem]">
         <div className="flex flex-row gap-[5.5rem] ">
           <MusicCover />
           <MusicCreateInput
