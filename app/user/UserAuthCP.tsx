@@ -10,8 +10,8 @@ class UserInfo{ //최상단 유저 겍체 + useStatus 를 합쳐서관리하자
 const UserAuthCP=()=>{
     // 관리할 데이터 use state 작성
     // 1 이면 로그 아웃 0 이면 로그인 
-    // const [getLoginStatus,setLoginStatus]=useState(false);
-    const [getLoginStatus,setLoginStatus]=useState(true);
+    const [getLoginStatus,setLoginStatus]=useState(false);
+    // const [getLoginStatus,setLoginStatus]=useState(true);
     const [getProfileIMG,setProfileIMG]=useState('https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png');
     const [getName,setName]=useState('');
     return(
