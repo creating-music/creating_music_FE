@@ -26,8 +26,14 @@ export default function MusicCreateForm({
     else setButtonEnabled(false);
   }, [title, selectedGenre, selectedMood]);
 
+  const onSubmit = (e: SubmitEvent) => {
+    console.log("submit");
+    e.preventDefault();
+    // api 호출 ~
+  };
+
   return (
-    <form name="music-create" acceptCharset="utf-8" method="post">
+    <form name="music-create">
       <section className="mx-auto w-full max-w-[87.5rem] rounded-[1rem] bg-u-gray-400 p-[7.5rem] pb-[5rem]">
         <div className="flex flex-row gap-[5.5rem] ">
           <MusicCover />
@@ -44,12 +50,12 @@ export default function MusicCreateForm({
           <SubmitButton
             label="공개하기"
             enabled={buttonEnabled}
-            onClick={() => console.log("공개하기")}
+            onClick={onSubmit}
           />
           <SubmitButton
             label="저장하기"
             enabled={buttonEnabled}
-            onClick={() => console.log("저장하기")}
+            onClick={onSubmit}
           />
         </div>
       </section>
