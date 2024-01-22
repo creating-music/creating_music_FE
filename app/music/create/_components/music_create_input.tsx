@@ -1,19 +1,18 @@
 import { Input } from "@mui/base";
 import Choice from "./choice";
-import { genreChoices, moodChoices } from "../data";
 
 interface MusicCreateInputProps {
   title: string;
-  genre: string;
-  mood: string;
+  selectedGenre: string;
+  selectedMood: string;
   onChangeTitle: (title: string) => void;
   onChangeSelectedGenre: (label: string) => void;
   onChangeSelectedMood: (label: string) => void;
 }
 export default function MusicCreateInput({
   title,
-  genre,
-  mood,
+  selectedGenre,
+  selectedMood,
   onChangeTitle,
   onChangeSelectedGenre,
   onChangeSelectedMood,
@@ -22,6 +21,9 @@ export default function MusicCreateInput({
     <div className="flex w-full flex-col gap-[0.5rem] pr-[4rem]">
       <p className="text-[2rem] font-semibold text-white">Music Title</p>
       <Input
+        type="text"
+        required
+        autoFocus
         value={title}
         onChange={(e) => onChangeTitle(e.target.value)}
         placeholder="제목을 입력하세요."
@@ -33,10 +35,10 @@ export default function MusicCreateInput({
         }}
       />
       <p className="text-[2rem] font-semibold text-white">Genre</p>
-      {genre !== "" ? (
+      {selectedGenre !== "" ? (
         <Choice
-          label={genre}
-          selected={genre}
+          label={selectedGenre}
+          selected={selectedGenre}
           onChangeSelected={onChangeSelectedGenre}
         />
       ) : (
@@ -46,10 +48,10 @@ export default function MusicCreateInput({
       )}
 
       <p className="text-[2rem] font-semibold text-white">Mood</p>
-      {mood !== "" ? (
+      {selectedMood !== "" ? (
         <Choice
-          label={mood}
-          selected={mood}
+          label={selectedMood}
+          selected={selectedMood}
           onChangeSelected={onChangeSelectedMood}
         />
       ) : (
