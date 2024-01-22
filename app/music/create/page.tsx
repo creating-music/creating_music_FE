@@ -12,6 +12,15 @@ export default function Home() {
   const [selectedGenre, setSelectedGenre] = useState<string>("");
   const [selectedMood, setSelectedMood] = useState<string>("");
 
+  const onChangeSelectedGenre = (genre: string) => {
+    setSelectedGenre(genre);
+    console.log("genre", genre);
+  };
+  const onChangeSelectedMood = (mood: string) => {
+    setSelectedMood(mood);
+    console.log("mood", mood);
+  };
+
   const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
   useEffect(() => {
     if (title !== "" && selectedGenre !== "" && selectedMood !== "")
@@ -28,9 +37,9 @@ export default function Home() {
             title={title}
             genre={selectedGenre}
             mood={selectedMood}
-            setTitle={setTitle}
-            setSelectedGenre={setSelectedGenre}
-            setSelectedMood={setSelectedMood}
+            onChangeTitle={setTitle}
+            onChangeSelectedGenre={setSelectedGenre}
+            onChangeSelectedMood={setSelectedMood}
           />
         </div>
         <div className="mt-[3.75rem] flex justify-end gap-[1rem]">
@@ -50,13 +59,13 @@ export default function Home() {
         title="장르"
         list={genreChoices}
         selected={selectedGenre}
-        setSelected={setSelectedGenre}
+        onChangeSelected={onChangeSelectedGenre}
       />
       <Menu
         title="무드"
         list={moodChoices}
         selected={selectedMood}
-        setSelected={setSelectedMood}
+        onChangeSelected={onChangeSelectedMood}
       />
     </main>
   );

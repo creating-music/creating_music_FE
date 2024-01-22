@@ -6,17 +6,24 @@ interface MusicCreateInputProps {
   title: string;
   genre: string;
   mood: string;
-  setTitle: (title: string) => void;
-  setSelectedGenre: (label: string) => void;
-  setSelectedMood: (label: string) => void;
+  onChangeTitle: (title: string) => void;
+  onChangeSelectedGenre: (label: string) => void;
+  onChangeSelectedMood: (label: string) => void;
 }
-export default function MusicCreateInput(props: MusicCreateInputProps) {
+export default function MusicCreateInput({
+  title,
+  genre,
+  mood,
+  onChangeTitle,
+  onChangeSelectedGenre,
+  onChangeSelectedMood,
+}: MusicCreateInputProps) {
   return (
     <div className="flex w-full flex-col gap-[0.5rem] pr-[4rem]">
       <p className="text-[2rem] font-semibold text-white">Music Title</p>
       <Input
-        value={props.title}
-        onChange={(e) => props.setTitle(e.target.value)}
+        value={title}
+        onChange={(e) => onChangeTitle(e.target.value)}
         placeholder="제목을 입력하세요."
         slotProps={{
           input: {
@@ -26,11 +33,11 @@ export default function MusicCreateInput(props: MusicCreateInputProps) {
         }}
       />
       <p className="text-[2rem] font-semibold text-white">Genre</p>
-      {props.genre !== "" ? (
+      {genre !== "" ? (
         <Choice
-          label={props.genre}
-          selected={props.genre}
-          setSelected={props.setSelectedGenre}
+          label={genre}
+          selected={genre}
+          onChangeSelected={onChangeSelectedGenre}
         />
       ) : (
         <p className="h-[2.5rem] text-[1.25rem] text-[#52525B]">
@@ -39,11 +46,11 @@ export default function MusicCreateInput(props: MusicCreateInputProps) {
       )}
 
       <p className="text-[2rem] font-semibold text-white">Mood</p>
-      {props.mood !== "" ? (
+      {mood !== "" ? (
         <Choice
-          label={props.mood}
-          selected={props.mood}
-          setSelected={props.setSelectedMood}
+          label={mood}
+          selected={mood}
+          onChangeSelected={onChangeSelectedMood}
         />
       ) : (
         <p className="h-[2.5rem] text-[1.25rem] text-[#52525B]">
