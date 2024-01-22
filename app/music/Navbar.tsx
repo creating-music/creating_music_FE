@@ -6,8 +6,10 @@ import Link from "next/link";
 import Icon from "../_components/Icon";
 import { KeyboardEventHandler, useState } from "react";
 import Button from "../_components/Button";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [searchText, setSearchText] = useState<string>("");
   const onSearch: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter") {
@@ -49,12 +51,26 @@ export default function Navbar() {
             }}
           />
           <Link href={"/music/create"}>
-            <p className="w-[9rem] text-center text-u-gray-300">
+            <p
+              className={
+                "w-[9rem] text-center " +
+                (pathname.endsWith("/music/create")
+                  ? "text-white"
+                  : "text-u-gray-300")
+              }
+            >
               AI 음악 만들기
             </p>
           </Link>
           <Link href={"/music/list"}>
-            <p className="w-[9rem] text-center text-u-gray-300">
+            <p
+              className={
+                "w-[9rem] text-center " +
+                (pathname.endsWith("/music/list")
+                  ? "text-white"
+                  : "text-u-gray-300")
+              }
+            >
               음악 라이브러리
             </p>
           </Link>
