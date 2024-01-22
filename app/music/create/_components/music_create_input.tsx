@@ -40,7 +40,7 @@ export default function MusicCreateInput({
           onChangeSelected={onChangeSelectedGenre}
         />
       ) : (
-        <p className="h-[2.5rem] text-[1.25rem] text-[#52525B]">
+        <p className="h-[2.75rem] text-[1.25rem] text-[#52525B]">
           장르를 선택해주세요
         </p>
       )}
@@ -53,7 +53,7 @@ export default function MusicCreateInput({
           onChangeSelected={onChangeSelectedMood}
         />
       ) : (
-        <p className="h-[2.5rem] text-[1.25rem] text-[#52525B]">
+        <p className="h-[2.75rem] text-[1.25rem] text-[#52525B]">
           무드를 선택해주세요
         </p>
       )}
