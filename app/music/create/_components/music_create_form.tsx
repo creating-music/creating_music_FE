@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import MusicCover from "./music_cover";
 import MusicCreateInput from "./music_create_input";
-import SubmitButton from "./submit_button";
+import Button from "@/app/_components/Button";
 
 interface MusicCreateFormProps {
   selectedGenre: string;
@@ -26,10 +26,16 @@ export default function MusicCreateForm({
     else setButtonEnabled(false);
   }, [title, selectedGenre, selectedMood]);
 
+  const onSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
+    console.log("submit");
+    e.preventDefault();
+    // api 호출 ~
+  };
+
   return (
-    <form name="music-create" acceptCharset="utf-8" method="post">
-      <section className="mx-auto w-full max-w-[87.5rem] rounded-[1rem] bg-u-gray-400 p-[7.5rem] pb-[5rem]">
-        <div className="flex flex-row gap-[5.5rem] ">
+    <form name="music-create">
+      <section className="mx-auto w-[75rem] max-w-[87.5rem] rounded-[1rem] bg-u-gray-400 p-[7.5rem] pb-[5rem]">
+        <div className="flex flex-row gap-[5.5rem]">
           <MusicCover />
           <MusicCreateInput
             title={title}
@@ -41,15 +47,21 @@ export default function MusicCreateForm({
           />
         </div>
         <div className="mt-[3.75rem] flex justify-end gap-[1rem]">
-          <SubmitButton
-            label="공개하기"
-            enabled={buttonEnabled}
-            onClick={() => console.log("공개하기")}
+          <Button
+            type="submit"
+            disabled={!buttonEnabled}
+            label={"공개하기"}
+            onClick={onSubmit}
+            filled={false}
+            size="md"
           />
-          <SubmitButton
+          <Button
+            type="submit"
+            disabled={!buttonEnabled}
             label="저장하기"
-            enabled={buttonEnabled}
-            onClick={() => console.log("저장하기")}
+            onClick={onSubmit}
+            filled={false}
+            size="md"
           />
         </div>
       </section>

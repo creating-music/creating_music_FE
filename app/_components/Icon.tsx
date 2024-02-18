@@ -22,6 +22,8 @@ const iconMatcher = {
   play: `${BASE_URL}/play.svg`,
   share: `${BASE_URL}/share-2.svg`,
   trash: `${BASE_URL}/trash-2.svg`,
+  search: `${BASE_URL}/search.svg`,
+  avatar: `${BASE_URL}/avatar.svg`,
 };
 
 export type IconName = keyof typeof iconMatcher;

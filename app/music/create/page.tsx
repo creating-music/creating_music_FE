@@ -13,7 +13,7 @@ export default function Home() {
   const onChangeSelectedMood = (mood: string) => setSelectedMood(mood);
 
   return (
-    <main className="h-full min-h-screen  bg-black px-[2rem] py-16">
+    <main className="flex-1  bg-black px-[2rem] py-16">
       <MusicCreateForm
         selectedGenre={selectedGenre}
         selectedMood={selectedMood}
