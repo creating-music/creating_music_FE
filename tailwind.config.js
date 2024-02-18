@@ -11,6 +11,7 @@ module.exports = {
         "u-gray-500": "#18181b",
         pink: "#FB27FF",
         cyan: "#27F2FF",
+        "container-gray": "#27272A",
       },
     },
   },

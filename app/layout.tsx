@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={inter.className}>
-      <body className="h-full min-h-screen">
+      <body className="vsc-initialized h-full min-h-screen">
         <Providers>{children}</Providers>
       </body>
     </html>
