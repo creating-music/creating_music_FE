@@ -1,8 +1,9 @@
 import { resLogin } from "../user/userUtil";
 import { resolveSoa } from "dns";
 import axios from "axios";
+import { headers } from "next/dist/client/components/headers";
 
-const REFRESH_URL = "http://localhost:8080/retoken";
+const REFRESH_URL = "http://192.168.0.15:8080";
 
 axios.interceptors.request.use((config: any) => {
   if (!config.headers) return config;
@@ -20,9 +21,20 @@ axios.interceptors.request.use((config: any) => {
 const getAccessToken = async (): Promise<string | void> => {
   try {
     // refresh token 을 같이 요청 하기 access 는 헤더에 존재
+    var addr = "/users/reissue";
+    // axios.defaults.withCredentials = true;
     const {
       data: { resLogin },
-    } = await axios.post(REFRESH_URL);
+    } = await axios(REFRESH_URL + addr, {
+      method: "POST",
+      withCredentials: true,
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin":
+      //     "http://192.168.0.15:8080; http://127.0.0.1",
+      //   // withCredentials: true,
+      // },
+    });
 
     if (resLogin.result.accessToken !== null) {
       sessionStorage.setItem("accessToken", resLogin.result.accessToken);
@@ -47,9 +59,13 @@ axios.interceptors.response.use(
       config,
       response: { status },
     } = err;
-    if (config.url === REFRESH_URL || status !== 401 || config.sent) {
+
+    // if (config.url === REFRESH_URL || status == 401 || config.sent) {
+    if (status !== 401 || config.sent) {
+      alert(1);
       return Promise.reject(err);
     }
+
     // 만약 만료 시간이 다 끝난 경우
     config.sent = true;
     const acToken = await getAccessToken();
