@@ -2,7 +2,7 @@
 
 import { fetchIcon } from "@/app/_api/fetchIcon";
 import { useQuery } from "@tanstack/react-query";
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLSpanElement> {
   iconUrl: string;

@@ -10,15 +10,6 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/music/list",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;

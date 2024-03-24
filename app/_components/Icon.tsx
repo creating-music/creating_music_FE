@@ -1,5 +1,4 @@
-import { HTMLAttributes } from "react";
-import ServerIcon from "./icon/ServerIcon";
+import type { HTMLAttributes } from "react";
 import ClientIcon from "./icon/ClientIcon";
 
 interface IconProps extends HTMLAttributes<HTMLSpanElement> {
@@ -28,13 +27,9 @@ const iconMatcher = {
 
 export type IconName = keyof typeof iconMatcher;
 
-export default async function Icon({ name, ...props }: IconProps) {
+export default function Icon({ name, ...props }: IconProps) {
   const iconUrl = iconMatcher[name];
-  const isServer = typeof window === "undefined";
+  // const isServer = typeof window === "undefined";
 
-  return isServer ? (
-    <ServerIcon iconUrl={iconUrl} {...props} />
-  ) : (
-    <ClientIcon iconUrl={iconUrl} {...props} />
-  );
+  return <ClientIcon iconUrl={iconUrl} {...props} />;
 }

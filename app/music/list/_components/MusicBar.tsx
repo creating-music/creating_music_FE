@@ -1,17 +1,41 @@
 "use client";
 
 import Image from "next/image";
-import { Music } from "@/app/music/list/types";
+import type { Music } from "@/app/music/list/types";
 import Icon from "@/app/_components/Icon";
 import { Button } from "@mui/base";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import Hls from "hls.js";
 interface Props {
   music: Music;
 }
 
 export default function MusicBar({ music }: Props) {
+  const musicRef = useRef<HTMLMediaElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+  const musicSrc =
+    "https://pl.streamingvideoprovider.com/mp3-playlist/playlist.m3u8";
+
+  useEffect(() => {
+    if (!Hls.isSupported() || !musicRef.current) return;
+    hlsRef.current = new Hls({
+      autoStartLoad: false,
+    });
+    hlsRef.current.loadSource(musicSrc);
+    hlsRef.current.attachMedia(musicRef.current);
+  }, [musicSrc]);
+
+  const handleClickPlay = () => {
+    if (!musicRef.current || !hlsRef.current) return;
+    hlsRef.current.startLoad();
+    if (musicRef.current.paused) musicRef.current.play();
+    else musicRef.current.pause();
+  };
+
   return (
     <div className="bg-ugray-500 flex h-[7.5rem] w-[75rem] px-[1.5rem] py-[1.25rem]">
+      <audio ref={musicRef} />
       <div className="flex h-[5rem] w-[5rem] items-center justify-center text-[1.125rem]">
         {music.rank}
       </div>
@@ -40,7 +64,7 @@ export default function MusicBar({ music }: Props) {
         <Link href="">{music.genre}</Link>
       </div>
       <div className="flex h-[5rem] w-[5rem] items-center justify-center">
-        <Button>
+        <Button onClick={handleClickPlay}>
           <Icon name="play" />
         </Button>
       </div>
