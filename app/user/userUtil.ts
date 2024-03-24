@@ -1,9 +1,12 @@
+// import axios from "axios";
 import { redirect } from "next/dist/server/api-utils";
 import { error } from "node:console";
 import { promises } from "node:dns";
 import { json } from "node:stream/consumers";
+import axios from "../axiosoverwrite/axiosinterceptors";
 // 서버 주소 여기에
-var serveraddr = "http://192.168.0.4:8080";
+// var serveraddr = "http://192.168.0.4:8080";
+var serveraddr = "http://192.168.0.15:8080";
 // }
 //로그인
 export interface resLogin {
@@ -40,18 +43,23 @@ const doLogin = async (inEmail: string, inPw: string): Promise<resLogin> => {
       profileUrl: "",
     },
   };
-  const addr = serveraddr + "/user/login";
+  const addr = serveraddr + "/users/login";
   let jsondata = {
     email: inEmail,
     password: inPw,
   };
   try {
+    // // withCredentials: true,
+    // axios.defaults.withCredentials = true;
+    // const res = await axios.post(`${serveraddr}/users/login`, jsondata);
+
     const res = await fetch(addr, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http:/localhost:3000",
+        "Access-Control-Allow-Origin":
+          "http://192.168.0.15:*; http://127.0.0.1",
       },
       body: JSON.stringify(jsondata),
     });
@@ -98,9 +106,9 @@ const doSignUp = async (
 ): Promise<resSignUp> => {
   let ret: resSignUp;
 
-  const addr = serveraddr + "/user/signup";
+  const addr = serveraddr + "/users/signup";
   const jsondata = {
-    username: INusername,
+    nickname: INusername,
     email: INEmail,
     password: INPw1,
   };
@@ -180,7 +188,10 @@ export { doLogin, doFindPass, doSignUp, doMailCheck, doIdCheck, doLogOut };
 //     console.log(err);
 // })
 // return ret
-
+export const users = async () => {
+  var addr = serveraddr + "/users";
+  const res = await axios.get(addr, {});
+};
 const getSession = (inKey: string): string => {
   const ret = sessionStorage.getItem(inKey);
   if (ret === null) {
