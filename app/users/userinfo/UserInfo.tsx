@@ -1,14 +1,26 @@
 import Image from "next/image";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import userInfoData from "./user-info.json";
+import { useEffect, useState } from "react";
+
+interface UserInfo {
+  username: string;
+  profile: string;
+  email: string;
+}
 
 export default function UserInfo() {
-  const test =
-    "https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png";
+  const [userInfo, setUserInfo] = useState<UserInfo>();
+
+  useEffect(() => {
+    setUserInfo(userInfoData.result);
+  }, []);
+
   return (
     <div className="m-auto h-full w-1/2">
       <section className="flex w-full gap-10">
         <Image
-          src={test}
+          src={userInfo?.profile ?? ""}
           alt="profile-image"
           width={100}
           height={100}
@@ -16,8 +28,8 @@ export default function UserInfo() {
         />
         <aside className="flex w-full flex-col gap-10">
           <div>
-            <h4 className="text-2xl font-semibold">username</h4>
-            <span>testemail1234@gmail.com</span>
+            <h4 className="text-2xl font-semibold">{userInfo?.username} </h4>
+            <span>{userInfo?.email}</span>
           </div>
           <div className="flex w-full gap-3">
             <div className="flex gap-[0.5rem]">
@@ -25,8 +37,8 @@ export default function UserInfo() {
               <AiOutlineInfoCircle className="mt-1" />
             </div>
             <div className="w-72 rounded-3xl bg-gray-500 px-6	py-5 text-sm">
-              username님은 현재 무료 플랜 유저입니다. 추후 업데이트를 통해 유료
-              플랜이 추가될 수 있습니다.
+              {userInfo?.username}님은 현재 무료 플랜 유저입니다. 추후
+              업데이트를 통해 유료 플랜이 추가될 수 있습니다.
             </div>
           </div>
         </aside>
@@ -38,14 +50,16 @@ export default function UserInfo() {
           <input
             id="name"
             type="text"
-            placeholder="계정닉네임"
+            placeholder={userInfo?.username}
+            readOnly
             className="h-8 w-80 rounded-full	bg-zinc-600 placeholder:text-gray-400	"
           />
           <label htmlFor="email">연결된 계정</label>
           <input
             id="email"
             type="email"
-            placeholder="testemail1234@gmail.com"
+            placeholder={userInfo?.email}
+            readOnly
             className="h-8 w-80 rounded-full	bg-zinc-600 placeholder:text-gray-400	"
           />
           <label htmlFor="password">비밀번호</label>
@@ -53,6 +67,7 @@ export default function UserInfo() {
             id="password"
             type="text"
             placeholder="********"
+            readOnly
             className="h-8 w-80 rounded-full	bg-zinc-600 placeholder:text-gray-400	"
           />
         </aside>
