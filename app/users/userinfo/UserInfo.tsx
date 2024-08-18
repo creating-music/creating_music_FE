@@ -2,6 +2,7 @@ import Image from "next/image";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import userInfoData from "./user-info.json";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface UserInfo {
   username: string;
@@ -12,8 +13,19 @@ interface UserInfo {
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
+  const getUserInfo = async () => {
+    try {
+      // const response = axios.get(`${processnv.NEXT_PUBLIC_DOMAIN}/api/users`);
+      setUserInfo(userInfoData.result); // * 일단 데이터 불러오는거 임의 파일에서 가져옴
+    } catch (error: any) {
+      // TODO: 에러처리
+      console.log("에러발생", error);
+    }
+  };
+
+  // 유저정보 불러오기
   useEffect(() => {
-    setUserInfo(userInfoData.result);
+    getUserInfo();
   }, []);
 
   return (
