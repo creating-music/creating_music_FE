@@ -9,9 +9,10 @@ interface Props extends HTMLAttributes<HTMLSpanElement> {
 }
 
 export default function ClientIcon({ iconUrl, ...props }: Props) {
-  const { data: icon, error } = useQuery([`icon-${iconUrl}`], () =>
-    fetchIcon(iconUrl),
-  );
+  const { data: icon, error } = useQuery({
+    queryKey: ["icon", iconUrl],
+    queryFn: () => fetchIcon(iconUrl),
+  });
 
   if (error) return;
 

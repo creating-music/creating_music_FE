@@ -19,7 +19,7 @@ export default function MusicCreateForm({
   const [selectedGenre, setSelectedGenre] = useState<string>("");
   const [selectedMood, setSelectedMood] = useState<string>("");
   const [selectedTempo, setSelectedTempo] = useState<string>("");
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["create", "music"],
     mutationFn: async (body: CreateMusicRequestBody) => {
       const res = await createMusic(body);
@@ -79,7 +79,7 @@ export default function MusicCreateForm({
         <div className="mt-[2.5rem] flex justify-end gap-[1rem]">
           <Button
             type="submit"
-            disabled={isLoading || !submitButtonEnabled}
+            disabled={isPending || !submitButtonEnabled}
             onClick={onSubmit}
             slotProps={{
               root: {
@@ -88,7 +88,7 @@ export default function MusicCreateForm({
               },
             }}
           >
-            {isLoading ? (
+            {isPending ? (
               <div role="status">
                 <svg
                   aria-hidden="true"

@@ -46,3 +46,6 @@ app/users/.UserAuthCP.tsx
 app/users/.UserPopUp.tsx
 dockerfile
 tmp
+test*
+
+*copy*.tsx

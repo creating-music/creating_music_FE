@@ -61,7 +61,7 @@ const LoginPopUp: React.FC<Props> = ({
     return (
       <div>
         {/* 모달 div */}
-        <div className="bg-gray flex w-max max-w-sm flex-col gap-[20px] rounded-2xl bg-u-gray-400 p-8">
+        <div className="bg-gray flex w-max max-w-sm flex-col gap-[12px]  rounded-3xl bg-u-gray-400 px-12 py-8">
           <h5 className="w-full text-center text-xl font-bold">로그인</h5>
           <div className="flex flex-col gap-[8px]">
             <label htmlFor="email" className="text-gray-200">
@@ -69,7 +69,7 @@ const LoginPopUp: React.FC<Props> = ({
             </label>
             <input
               id="email"
-              className="rounded-full border bg-u-gray-500 p-2"
+              className="rounded-full border-0 pr-15 py-1.5 bg-u-gray-500 pl-4 focus:outline-none"
               type="email"
               placeholder="Email"
               name="email"
@@ -86,7 +86,9 @@ const LoginPopUp: React.FC<Props> = ({
             </label>
             <input
               id="password"
-              className="rounded-full border bg-u-gray-500 p-2"
+              // w-full border bg-u-gray-500 border-gray-300 rounded-full pl-4 pr-20 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500
+              // w-full border-0 bg-u-gray-500 rounded-full pl-4 pr-20 py-1.5 focus:outline-none
+              className="rounded-full border-0 pr-15 py-1.5 bg-u-gray-500 pl-4 focus:outline-none"
               type="password"
               placeholder="Password"
               name="password"
@@ -102,7 +104,7 @@ const LoginPopUp: React.FC<Props> = ({
             <button
               // className="rounded-full bg-white text-black px-4 py-2 center"
               // className="mx-auto rounded-full bg-white text-black px-6 py-3"
-              className="mx-4 rounded-full border bg-white px-16 py-2 font-bold text-black"
+              className="mx-4 rounded-full border bg-white px-12 py-1 font-bold text-black"
               onClick={(e) => {
                 login();
               }}
@@ -114,7 +116,7 @@ const LoginPopUp: React.FC<Props> = ({
             <button
               className=" text-xs text-gray-200 underline "
               onClick={(e) => {
-                chModal(4);
+                chModal(2);
               }}
             >
               회원가입{" "}
@@ -129,7 +131,7 @@ const LoginPopUp: React.FC<Props> = ({
               아이디/비밀번호 찾기
             </button>
           </div>
-          <hr className="h-0 w-full border-[2px] border-[#5A5A5A] " />
+          <hr className="h-0 w-full border-[2px] border-[#5A5A5A] mb-4" />
           <div className="flex items-center justify-center gap-[60px]">
             <GoogleAuthLogin1></GoogleAuthLogin1>
             <KakaoAuthLogin></KakaoAuthLogin>

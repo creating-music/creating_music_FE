@@ -23,8 +23,7 @@ const GoogleAuthLogin = () => {
         <button
           type="button"
           onClick={handleLogin}
-          className="flex  items-center justify-center rounded-full focus:outline-none"
-        >
+          className="flex  items-center justify-center rounded-full focus:outline-none">
           google
           <Image
             alt={`로고`}

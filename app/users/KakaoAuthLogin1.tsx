@@ -24,6 +24,8 @@ const KakaoAuthLogin = () => {
             src={`${process.env.NEXT_PUBLIC_ICON}/kakao.svg`}
             alt="KAKAO"
             className="h-full w-full rounded-full object-cover"
+            width={11}
+            height={11}
           />
         </button>
       </div>

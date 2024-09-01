@@ -2,8 +2,6 @@
 import { doCodeCheck, doMailCheck, doSignUp } from "./userUtil";
 import React, { useState } from "react";
 import { resMailCheck, resSignUp } from "./userUtil";
-import GoogleAuthLogin1 from "./GoogleAuthLogin1";
-import KakaoAuthLogin from "./KakaoAuthLogin1";
 
 interface Props {
   getJoin: boolean;
@@ -23,7 +21,7 @@ const JoinPopUp: React.FC<Props> = ({
   const [getCode, setCode] = useState("");
   const [getPw1, setPw1] = useState("");
   const [getPw2, setPw2] = useState("");
-  const [getHidden, setHidden] = useState(false);
+  const [getHidden, setHidden] = useState(true);
 
   const sign = async () => {
     let ret: resSignUp;
@@ -81,14 +79,14 @@ const JoinPopUp: React.FC<Props> = ({
     return null;
   } else {
     return (
-      <div className="bg-gray flex w-max max-w-sm flex-col gap-[12px] rounded-3xl bg-u-gray-400 px-10 py-8">
+      <div className="bg-gray flex w-max max-w-sm flex-col gap-[12px] rounded-2xl bg-u-gray-400 p-8">
         <h5 className="w-full text-center text-xl font-bold">회원가입</h5>
-        <div className="flex flex-col gap-[8px] ">
+        <div className="flex flex-col gap-[8px]">
           <label htmlFor="email" className="text-gray-200">
             닉네임
           </label>
           <input
-            className="w-full border-0 bg-u-gray-500 rounded-full pl-4 pr-20 py-1.5 focus:outline-none"
+            className="w-full border bg-u-gray-500 border-gray-300 rounded-full pl-4 pr-20 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="text"
             placeholder="닉네임"
             name="UserName"
@@ -113,15 +111,20 @@ const JoinPopUp: React.FC<Props> = ({
           <div className="relative">
             <input
               type="text"
-              className="w-full border-0 bg-u-gray-500 rounded-full pl-4 pr-20 py-1.5 focus:outline-none"
+              className="w-full border bg-u-gray-500 border-gray-300 rounded-full pl-4 pr-20 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="이메일"
               value={getEmail}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {/* <button
+              className="absolute right-0 top-0 mt-2 mr-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={mailCheck}
+            >
+              Send
+            </button> */}
           </div>
         </div>
-        {getHidden && (
-          <div>
+        {getHidden && (<div className="flex flex-col gap-[8px]">
           <div className="flex justify-between">
             {/* <label htmlFor="email" className="text-gray-200">
               
@@ -132,30 +135,29 @@ const JoinPopUp: React.FC<Props> = ({
             >
             </button>
           </div>
-            <div className="flex items-center">
+          <div className="relative">
             <input
               type="text"
-              className="flex-1 border-0 bg-u-gray-500 rounded-l-full pl-4 pr-4 py-1.5 focus:outline-none"
+              className="w-full border bg-u-gray-500 border-gray-300 rounded-full pl-4 pr-20 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="인증 코드"
-              value={getCode}
-              onChange={(e) => setCode(e.target.value)}
+              value={getEmail}
+              onChange={(e) =>  setCode(e.target.value)}
             />
             <button
-              // className="border-0 bg-blue-500 rounded-r-full px-4 py-1.5 text-white focus:outline-none"
-              className="border-0 bg-u-gray-300 rounded-r-full px-3 py-1.5 font-bold text-white focus:outline-none"
+              className="rounded-tl-lg rounded-bl-lg absolute right-0 top-0 mt-0 mr-0 px-4 py-2 bg-blue-500  rounded-full bg-white text-black focus:outline-none focus:ring-2 "
               onClick={codeCheck}
             >
               전송
             </button>
           </div>
-          </div>
+        </div>
         )}
         <div className="flex flex-col gap-[8px]">
           <label htmlFor="password1" className="text-gray-200">
             비밀번호
           </label>
           <input
-            className="w-full border-0 bg-u-gray-500 rounded-full pl-4 pr-20 py-1.5 focus:outline-none "
+            className="w-full border bg-u-gray-500 border-gray-300 rounded-full pl-4 pr-20 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="password"
             placeholder="비밀번호"
             name="password1"
@@ -168,7 +170,7 @@ const JoinPopUp: React.FC<Props> = ({
             비밀번호 확인
           </label> */}
           <input
-            className="w-full border-0 bg-u-gray-500 rounded-full pl-4 pr-20 py-1.5 focus:outline-none "
+            className="w-full border bg-u-gray-500 border-gray-300 rounded-full pl-4 pr-20 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="password"
             placeholder="비밀번호 확인"
             name="password2"
@@ -178,7 +180,7 @@ const JoinPopUp: React.FC<Props> = ({
         </div>
         <div className="mt-3 flex items-center justify-center">
           <button
-            className="mx-4 rounded-full border bg-white px-12 py-1 font-bold text-black"
+            className="mx-4 rounded-full border bg-white px-16 py-2 font-bold text-black"
             onClick={sign}
           >
             회원가입
@@ -197,13 +199,7 @@ const JoinPopUp: React.FC<Props> = ({
           >
             아이디/비밀번호 찾기
           </button>
-          
         </div>
-        <hr className="h-0 w-full border-[2px] border-[#5A5A5A] mb-4" />
-          <div className="flex items-center justify-center gap-[60px]">
-            <GoogleAuthLogin1></GoogleAuthLogin1>
-            <KakaoAuthLogin></KakaoAuthLogin>
-          </div>
       </div>
     );
   }

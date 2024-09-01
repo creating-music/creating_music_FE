@@ -28,6 +28,8 @@ const GoogleAuthLogin = () => {
             src={`${process.env.NEXT_PUBLIC_ICON}/google.svg`}
             alt="GOOGLE"
             className="h-full w-full rounded-full object-cover"
+            width={11}
+            height={11}
             // onClick={handleLogin}
           />
         </button>
