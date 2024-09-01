@@ -31,5 +31,6 @@
     ".tmp/.tmpGoogleAuthLogin.tsx",
     "app/users/.tmp_GoogleAuthLogin2.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typeRoots": ["app/_types/axios.d.ts"]
 }
