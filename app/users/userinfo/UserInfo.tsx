@@ -11,9 +11,8 @@ interface UserInfo {
 }
 
 export default function UserInfo() {
-  const [userInfo, setUserInfo] = useState<UserInfo>();
   const [isEdit, setIsEdit] = useState(false);
-  const [formData, setFormData] = useState<UserInfo | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [openPlan, setOpenPlan] = useState(false);
 
@@ -32,7 +31,7 @@ export default function UserInfo() {
   };
 
   const handleInfoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevFormData) => ({
+    setUserInfo((prevFormData) => ({
       ...(prevFormData || { username: "", profile: "" }), // null일 경우 기본값 설정
       [e.target.name]: e.target.value,
     }));
@@ -46,7 +45,7 @@ export default function UserInfo() {
         setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-      setFormData((prevFormData) => ({
+      setUserInfo((prevFormData) => ({
         profile: file,
         username: prevFormData?.username || "",
       }));
@@ -56,8 +55,8 @@ export default function UserInfo() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // await axios.patch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/users`, formData);
-      console.log("수정된 정보:", formData);
+      // await axios.patch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/users`, userInfo);
+      console.log("수정된 정보:", userInfo);
       setIsEdit(false);
     } catch (error: any) {
       console.log("에러발생", error);
@@ -100,7 +99,7 @@ export default function UserInfo() {
             <input
               className="placeholder:text-gray-4 h-8 w-80 rounded-full bg-zinc-600"
               name="username"
-              value={isEdit ? formData?.username : userInfo?.username}
+              value={isEdit ? userInfo?.username : userInfo?.username}
               onChange={handleInfoChange}
               readOnly={!isEdit}
               placeholder={userInfo?.username}
