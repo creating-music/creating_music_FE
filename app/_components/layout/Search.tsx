@@ -32,7 +32,7 @@ const Search = () => {
         },
         input: {
           className:
-            "text-u-gray-200 text-[1.25rem] h-[32px] bg-u-gray-500 border-none focus:border-none focus:box-shadow-none focus:ring-0 focus:ring-offset-0 focus:ring-offset-transparent",
+            "text-u-gray-200 text-[1.25rem] h-[32px] w-full bg-transparent border-none focus:border-none focus:box-shadow-none focus:ring-0 focus:ring-offset-0 focus:ring-offset-transparent",
         },
       }}
     />

@@ -22,11 +22,11 @@ const Href = () => {
         AI 음악 만들기
       </Link>
       <Link
-        href={"/library"}
+        href={"/library/my"}
         className={`
         inline-flex h-[56px] items-center justify-center text-nowrap px-[20px] font-medium
             ${
-              pathname.endsWith("/library")
+              pathname.startsWith("/library")
                 ? "font-semibold text-white"
                 : "text-u-gray-300"
             }

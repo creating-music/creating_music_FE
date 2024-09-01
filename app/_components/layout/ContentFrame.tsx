@@ -8,7 +8,7 @@ interface Props extends FrameProps {
 
 export default function ContentFrame({ title, addon, children }: Props) {
   return (
-    <Frame className="w-full pt-[16px]">
+    <Frame className="w-full py-[16px]">
       <header className="flex h-[80px] items-center justify-between">
         <h2 className="ml-[104px] text-[2rem] font-semibold leading-[1.25] text-white">
           {title}

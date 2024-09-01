@@ -2,7 +2,6 @@
 
 import MusicBar from "@/app/_components/music/MusicBar";
 import type { Music } from "../../_types/music";
-import { useState } from "react";
 
 interface Props {
   musicList: Music[];
