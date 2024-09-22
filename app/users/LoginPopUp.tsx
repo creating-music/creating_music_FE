@@ -8,7 +8,6 @@ interface Props {
   getLogin: boolean;
   chModal: (value: number) => void;
   closeModal: () => void;
-  msgModal: (INmsg: string) => void;
   chLogin: () => void;
   chLogout: () => void;
   // setLoginStatus: (status: boolean) => void;
@@ -128,7 +127,7 @@ const LoginPopUp: React.FC<Props> = ({
               }}
             >
               {" "}
-              아이디/비밀번호 찾기
+              비밀번호 찾기
             </button>
           </div>
           <hr className="h-0 w-full border-[2px] border-[#5A5A5A] mb-4" />

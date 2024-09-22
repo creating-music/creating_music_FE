@@ -1,7 +1,7 @@
 "use client";
 import { doCodeCheck, doMailCheck, doSignUp } from "./userUtil";
 import React, { useState } from "react";
-import { resMailCheck, resSignUp } from "./userUtil";
+import { resDefult } from "./userUtil";
 import GoogleAuthLogin1 from "./GoogleAuthLogin1";
 import KakaoAuthLogin from "./KakaoAuthLogin1";
 
@@ -9,14 +9,12 @@ interface Props {
   getJoin: boolean;
   chModal: (value: number) => void;
   closeModal: () => void;
-  msgModal: (msg: string) => void;
 }
 
 const JoinPopUp: React.FC<Props> = ({
   getJoin,
   chModal,
   closeModal,
-  msgModal,
 }) => {
   const [getUserName, setUserName] = useState("");
   const [getEmail, setEmail] = useState("");
@@ -26,7 +24,7 @@ const JoinPopUp: React.FC<Props> = ({
   const [getHidden, setHidden] = useState(false);
 
   const sign = async () => {
-    let ret: resSignUp;
+    let ret: resDefult;
     if (getPw1 === getPw2) {
       ret = await doSignUp(getUserName, getEmail, getPw1, getCode);
       if (ret.isSuccess) {
@@ -36,7 +34,6 @@ const JoinPopUp: React.FC<Props> = ({
         setPw2("");
         setCode("");
         setHidden(false);
-        chModal(1);
         alert(ret.result);
         setTimeout(() => {
           closeModal();
@@ -53,7 +50,7 @@ const JoinPopUp: React.FC<Props> = ({
     if (!getEmail) {
       alert("메일을 입력 해주세요");
     } else {
-      let ret: resMailCheck = await doMailCheck(getEmail);
+      let ret: resDefult = await doMailCheck(getEmail);
       if (ret.code === 200) {
         setHidden(true);
         alert(ret.message);
@@ -189,13 +186,13 @@ const JoinPopUp: React.FC<Props> = ({
             className="text-xs text-gray-200 underline"
             onClick={() => chModal(1)}
           >
-            로그인 하기
+            로그인
           </button>
           <button
             className="text-xs text-gray-200 underline"
             onClick={() => chModal(3)}
           >
-            아이디/비밀번호 찾기
+            비밀번호 찾기
           </button>
           
         </div>

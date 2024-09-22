@@ -14,24 +14,19 @@ interface resUserInfo {
   nickname: string;
   profileUrl: string;
 }
-export interface resSignUp {
+export interface resDefult {
   isSuccess: boolean;
+  code: number;
   message: string;
   result: string;
-  code: number;
 }
 interface resIdCheck {
   msg: string;
   state: boolean;
 }
-export interface resMailCheck {
-  message: string;
-  code: number;
-  isSuccess: boolean;
-  result: string;
-}
+
 // const doLogin=async (inEmail:string,inPw:string):Promise<resLogin>=>{
-const doLogin = async (inEmail: string, inPw: string): Promise<resLogin> => {
+export const doLogin = async (inEmail: string, inPw: string): Promise<resLogin> => {
   let ret: resLogin;
   ret = {
     isSuccess: false, // 성공 여부 (true/false)
@@ -79,7 +74,7 @@ const doLogin = async (inEmail: string, inPw: string): Promise<resLogin> => {
     return ret;
   }
 };
-const doGoogleLogin = async (inCode: string | null): Promise<resLogin> => {
+export const doGoogleLogin = async (inCode: string | null): Promise<resLogin> => {
   let ret: resLogin;
   ret = {
     isSuccess: false, // 성공 여부 (true/false)
@@ -133,7 +128,7 @@ const doGoogleLogin = async (inCode: string | null): Promise<resLogin> => {
     return ret;
   }
 };
-const doKakaoLogin = async (inCode: string | null): Promise<resLogin> => {
+export const doKakaoLogin = async (inCode: string | null): Promise<resLogin> => {
   let ret: resLogin;
   ret = {
     isSuccess: false, // 성공 여부 (true/false)
@@ -179,7 +174,7 @@ const doKakaoLogin = async (inCode: string | null): Promise<resLogin> => {
     return ret;
   }
 };
-const doFindPass = async () => {
+export const doFindPass = async () => {
   const addr = serveraddr + "";
   let ret;
   let jsondata = {};
@@ -194,14 +189,18 @@ const doFindPass = async () => {
   });
 };
 // 회원가입
-const doSignUp = async (
+export const doSignUp = async (
   INusername: string,
   INEmail: string,
   INPw1: string,
   INCode: string,
-): Promise<resSignUp> => {
-  let ret: resSignUp;
-
+): Promise<resDefult> => {
+  let ret: resDefult={
+    message: "fail",
+    isSuccess: false,
+    result: "회원가입 실패 네트워크 에러",
+    code: 400,
+  };
   const addr = serveraddr + "/users/signup";
   const jsondata = {
     nickname: INusername,
@@ -222,17 +221,11 @@ const doSignUp = async (
     ret = await res.json();
   } catch (error) {
     console.log(error);
-    ret = {
-      message: "fail",
-      isSuccess: false,
-      result: "회원가입 실패 네트워크 에러",
-      code: 400,
-    };
   }
   return ret;
 };
 // const errorHandler = async (error: string) => {};
-const doReSession = async (inerror: any): Promise<string | void> => {
+export const doReSession = async (inerror: any): Promise<string | void> => {
   try {
     // refresh token 을 같이 요청 하기 access 는 헤더에 존재
     const addr = "/users/reissue";
@@ -264,9 +257,9 @@ const doReSession = async (inerror: any): Promise<string | void> => {
 };
 
 // 메일 인증
-const doMailCheck = async (inMail: string): Promise<resMailCheck> => {
+export const doMailCheck = async (inMail: string): Promise<resDefult> => {
   // 이메일이 존재 할수 없는 경우 중복인 경우
-  let ret: resMailCheck = {
+  let ret: resDefult = {
     message: "",
     code: 0,
     isSuccess: false,
@@ -276,7 +269,8 @@ const doMailCheck = async (inMail: string): Promise<resMailCheck> => {
     email: inMail,
   };
   let res;
-  const addr = serveraddr + "/users/email/code-request";
+  const addr=serveraddr+"/users/email/code-request";
+   
   res = await fetch(addr, {
     method: "POST",
     body: JSON.stringify(jsondata),
@@ -289,13 +283,59 @@ const doMailCheck = async (inMail: string): Promise<resMailCheck> => {
   ret = await res.json();
   return ret;
 };
-
-const doCodeCheck = async (
+export const doSendEmail=async (inMail:string ):Promise<resDefult>=>{
+  const addr=serveraddr+"/users/reset-password-request"
+  let ret:resDefult={
+    message: "",
+    code: 0,
+    isSuccess: false,
+    result: "요청 실패",
+  };
+  let jsondata = {
+    email: inMail,
+  };
+  let res = await fetch(addr, {
+    method: "POST",
+    body: JSON.stringify(jsondata),
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin":
+        "http://192.168.0.15:*; http://127.0.0.1; https://showpang.org",
+    },
+  });
+  ret = await res.json();
+  return ret;
+}
+export const doResetPasswd=async (inToken:string, inNewPasswd:string):Promise<resDefult>=>{
+  const addr=serveraddr+"/users/reset-password";
+  let ret:resDefult={
+    message: "",
+    code: 0,
+    isSuccess: false,
+    result: "요청 실패",
+  };
+  let jsondata={
+    token:inToken,
+    newPassword:inNewPasswd
+  }
+  let res = await fetch(addr, {
+    method: "POST",
+    body: JSON.stringify(jsondata),
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin":
+        "http://192.168.0.15:*; http://127.0.0.1; https://showpang.org",
+    },
+  });
+  ret = await res.json();
+  return ret;
+}
+export const doCodeCheck = async (
   inMail: string,
   inCode: string,
-): Promise<resMailCheck> => {
+): Promise<resDefult> => {
   // 이메일이 존재 할수 없는 경우 중복인 경우
-  let ret: resMailCheck = {
+  let ret: resDefult= {
     message: "",
     code: 0,
     isSuccess: false,
@@ -320,7 +360,7 @@ const doCodeCheck = async (
   return ret;
 };
 
-const doIdCheck = async (inId: string): Promise<resIdCheck> => {
+export const doIdCheck = async (inId: string): Promise<resIdCheck> => {
   let ret: resIdCheck;
   ret = {
     msg: "net error",
@@ -340,7 +380,7 @@ const doIdCheck = async (inId: string): Promise<resIdCheck> => {
   return ret;
 };
 
-const doLogOut = async () => {
+export const doLogOut = async () => {
   const addr = serveraddr + "/users/logout";
   let ret;
   delSession("nickname");
@@ -356,18 +396,18 @@ const doLogOut = async () => {
   return null;
 };
 
-export {
-  doLogin,
-  doFindPass,
-  doSignUp,
-  doMailCheck,
-  doIdCheck,
-  doLogOut,
-  doGoogleLogin,
-  doKakaoLogin,
-  doReSession,
-  doCodeCheck,
-};
+// export {
+//   doLogin,
+//   doFindPass,
+//   doSignUp,
+//   doMailCheck,
+//   doIdCheck,
+//   doLogOut,
+//   doGoogleLogin,
+//   doKakaoLogin,
+//   doReSession,
+//   doCodeCheck,
+// };
 
 export const users = async () => {
   var addr = serveraddr + "/users";
