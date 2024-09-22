@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".tmp/.tmpGoogleAuthLogin.tsx",
     "app/users/.tmp_GoogleAuthLogin2.tsx"
-  ],
+, "app/users/.tmpfile/SelectJoinPopUp.tsx", "app/users/.tmpfile/JoinPopUp copy 2.tsx", "app/users/.tmpfile/JoinPopUp copy.tsx", "app/users/.tmpfile/GoogleAuthLogin2.tsx", "app/users/.tmpfile/KakaoAuthLogin2.tsx"  ],
   "exclude": ["node_modules"]
 }

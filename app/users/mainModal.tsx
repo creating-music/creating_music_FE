@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import LoginPopUp from "./LoginPopUp";
 import JoinPopUp from "./JoinPopUp";
-import FindIdPwPopUp from "./FindIdPwPopUp";
-import SelectJoinPopUp from "./SelectJoinPopUp";
+import FindPwPopUp from "./FindPwPopUp";
+import { chmod } from "fs";
 
 interface Props {
   getModal: boolean;
@@ -11,7 +11,6 @@ interface Props {
   chLogin: () => void;
   chLogout: () => void;
 }
-
 const MainModalPopup: React.FC<Props> = ({
   getModal,
   setModal,
@@ -19,10 +18,8 @@ const MainModalPopup: React.FC<Props> = ({
   chLogout,
 }) => {
   const [getLogin, setLogin] = useState(true);
-  // const [getSelectJoin, setSelectJoin] = useState(false);
   const [getJoin, setJoin] = useState(false);
   const [getFind, setFind] = useState(false);
-  const [getmsgstr, setmsgstr] = useState("");
   const chModal = (InputNum: number) => {
     if (InputNum == 1) {
       setLogin(true);
@@ -38,31 +35,23 @@ const MainModalPopup: React.FC<Props> = ({
       setFind(true);
       setLogin(false);
       setJoin(false);
-      // setSelectJoin(false);
-    } 
-    // else if (InputNum == 4) {
-    //   setFind(false);
-    //   setLogin(false);
-    //   setJoin(false);
-    //   setSelectJoin(true);
-    // }
-
+    }
   };
   const notModal = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       closeModal();
     }
   };
-  const closeModal = () => {
+  const closeModal = (inNum: number | null = 1) => {
+    // `inNum`이 `null`일 경우 기본값을 설정
+    const num = inNum !== null ? inNum : 1;
+    chModal(num);
     setModal(false);
     setLogin(true);
     setJoin(false);
     setFind(false);
-    // setSelectJoin(false);
   };
-  const msgModal = (INmsg: string) => {
-    setmsgstr(INmsg);
-  };
+
   if (getModal == false) {
     return null;
   } else if (getModal == true) {
@@ -78,28 +67,21 @@ const MainModalPopup: React.FC<Props> = ({
               getLogin={getLogin}
               chModal={chModal}
               closeModal={closeModal}
-              msgModal={msgModal}
+              
               chLogin={chLogin}
               chLogout={chLogout}
             ></LoginPopUp>
-            {/* <SelectJoinPopUp
-              getSelectJoin={getSelectJoin}
-              chModal={chModal}
-              closeModal={closeModal}
-              msgModal={msgModal}
-            ></SelectJoinPopUp> */}
-
             <JoinPopUp
               getJoin={getJoin}
               chModal={chModal}
               closeModal={closeModal}
-              msgModal={msgModal}
+              
             ></JoinPopUp>
-            <FindIdPwPopUp
+            <FindPwPopUp
               getFind={getFind}
               chModal={chModal}
-              clocseModal={closeModal}
-            ></FindIdPwPopUp>
+              closeModal={closeModal}
+            ></FindPwPopUp>
           </div>
         </div>
       </div>
