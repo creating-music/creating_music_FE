@@ -15,6 +15,7 @@
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
+    "@types/react-icons": "^3.0.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.6.7",
     "dotenv": "^16.4.5",
@@ -26,7 +27,7 @@
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.51.0"
+    "tailwind": "^4.0.0"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

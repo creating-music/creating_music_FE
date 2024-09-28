@@ -1,0 +1,10 @@
+{
+  "isSuccess": true,
+  "code": 200,
+  "message": "요청에 성공했습니다.",
+  "result": {
+    "username": "음악의신",
+    "profile": "https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png",
+    "email": "testemail1234@gmail.com"
+  }
+}
